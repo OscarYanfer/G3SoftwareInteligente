@@ -43,7 +43,7 @@ df = df.drop(['CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOM
 #df.drop(['ID', 'CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOMBRE DE LA UO'], axis=1)
 
 #Verificación de valores vacíos
-st.write("""Conjunto de datos cargado: """+df.isnull().any().any())
+st.write("Conjunto de datos cargado: " + str(df.isnull().any().any()))
 #print(df.isnull().any().any())
 
 #Filtración de valores pertenecientes al primer semestre del año 2021
