@@ -37,14 +37,13 @@ if uploaded_file is not None:
     st.write("""Conjunto de datos cargado: """)
     df = pd.read_excel(uploaded_file, sheet_name='Sheet1', index_col=0)
     st.dataframe(df)  # Mostrar el DataFrame en Streamlit
-    df = df.drop(['CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOMBRE DE LA UO'], axis=1)
 
 #Eliminación de columnas con instancias únicas
-#df = df.drop(['CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOMBRE DE LA UO'], axis=1)
+    df = df.drop(['CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOMBRE DE LA UO'], axis=1)
 #df.drop(['ID', 'CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOMBRE DE LA UO'], axis=1)
 
 #Verificación de valores vacíos
-st.write("Existencia de datos vacíos: " + str(df.isnull().any().any()))
+    st.write("Existencia de datos vacíos: " + str(df.isnull().any().any()))
 #print(df.isnull().any().any())
 
 st.write("""Filtración de valores pertenecientes al primer semestre del año 2021...""")
