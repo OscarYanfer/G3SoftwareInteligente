@@ -73,31 +73,34 @@ st.write("Existencia de datos vacíos: " + str(df.isnull().any().any()))
 
 #df.head()
 
+st.write("""Reemplazando valores en 0 con los valores máximos de cada columna...""")
 #Reemplazar valores en 0 con los valores máximos de cada columna 
 for c in columnas:
     max = df[c].max()
     print(max)
     df[c] = df[c].replace({0: max})
 
-df.head()
+#df.head()
 
 df = df.rename(columns={'Fecha':'Fecha y Hora', 'Fecha_v2':'Fecha'})
-df.info()
+#df.info()
 
 #Transformamos la división de atributos en tipo fecha
 df['Año'] = df['Fecha'].dt.year 
 df['Mes'] = df['Fecha'].dt.month 
 df['Dia'] = df['Fecha'].dt.day 
 
+st.write("""Reordenando columnas...""")
 #Reordenamos las columnas
 df = df[['Fecha y Hora', 'Fecha', 'Año', 'Mes', 'Dia', 'Hora', 'CO (ug/m3)', 'H2S (ug/m3)', 'NO2 (ug/m3)', 'O3 (ug/m3)',
        'PM10 \n(ug/m3)', 'PM2.5 \n(ug/m3)', 'SO2 (ug/m3)', 'Ruido (dB)', 'UV',
        'Humedad (%)', 'Latitud', 'Longitud', 'Presion \n(Pa)',
        'Temperatura (C)']]
 
-df.head()
+#df.head()
 
 #Cambiando el indice a la Fecha y Hora, si es que se desea
 df.set_index("Fecha y Hora", drop=True, append=False, inplace=True, verify_integrity=False)
 
+st.write("""Conjunto de datos final:""")
 df
