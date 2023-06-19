@@ -29,14 +29,12 @@ st.markdown(
 )
 
 st.markdown("# Sección I - Preprocesamiento")
-st.write(
-    """Ingrese un conjunto de datos."""
-)
 
 uploaded_file = st.file_uploader("Cargar archivo Excel", type=["xlsx"])
 
 if uploaded_file is not None:
     #Columna iniciasl será el index
+    st.write("""Conjunto de datos cargado:""")
     df = pd.read_excel(uploaded_file, sheet_name='Sheet1', index_col=0)
     st.dataframe(df)  # Mostrar el DataFrame en Streamlit
 
@@ -45,7 +43,8 @@ df = df.drop(['CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOM
 #df.drop(['ID', 'CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOMBRE DE LA UO'], axis=1)
 
 #Verificación de valores vacíos
-print(df.isnull().any().any())
+st.write("""Conjunto de datos cargado: """+df.isnull().any().any())
+#print(df.isnull().any().any())
 
 #Filtración de valores pertenecientes al primer semestre del año 2021
 df = df.loc[(df['Fecha_v2'] >= '2021-01-01')
