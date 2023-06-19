@@ -26,10 +26,32 @@ st.markdown(
 )
 
 import pandas as pd
-import numpy as np
-import datetime
+from io import StringIO
 
-datos = 'CalidadAire.xlsx'
+st.markdown("# Sección I - Preprocesamiento")
+st.write(
+    """Ingrese un conjunto de datos."""
+)
+
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    # To read file as bytes:
+    bytes_data = uploaded_file.getvalue()
+    st.write(bytes_data)
+
+    # To convert to a string based IO:
+    stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+    st.write(stringio)
+
+    # To read file as string:
+    string_data = stringio.read()
+    st.write(string_data)
+
+    # Can be used wherever a "file-like" object is accepted:
+    dataframe = pd.read_csv(uploaded_file)
+    st.write(dataframe)
+
+datos = uploaded_file
 
 #Columna iniciasl será el index
 df = pd.read_excel(datos, sheet_name='Sheet1', index_col = 0)
