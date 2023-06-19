@@ -125,7 +125,6 @@ from sklearn.metrics import confusion_matrix, classification_report, accuracy_sc
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.pipeline import Pipeline
-import xgboost as xgb
 seed = 4353
 
 data = df
