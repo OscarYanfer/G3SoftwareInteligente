@@ -34,7 +34,7 @@ uploaded_file = st.file_uploader("Cargar archivo Excel", type=["xlsx"])
 
 if uploaded_file is not None:
     #Columna iniciasl será el index
-    st.write("""Conjunto de datos cargado:""")
+    st.write("""Conjunto de datos cargado: """)
     df = pd.read_excel(uploaded_file, sheet_name='Sheet1', index_col=0)
     st.dataframe(df)  # Mostrar el DataFrame en Streamlit
 
@@ -43,15 +43,16 @@ df = df.drop(['CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOM
 #df.drop(['ID', 'CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOMBRE DE LA UO'], axis=1)
 
 #Verificación de valores vacíos
-st.write("Conjunto de datos cargado: " + str(df.isnull().any().any()))
+st.write("Existencia de datos vacíos: " + str(df.isnull().any().any()))
 #print(df.isnull().any().any())
 
+st.write("""Filtración de valores pertenecientes al primer semestre del año 2021...""")
 #Filtración de valores pertenecientes al primer semestre del año 2021
 df = df.loc[(df['Fecha_v2'] >= '2021-01-01')
                      & (df['Fecha_v2'] < '2021-07-01')]
 
 #Visualización de la información
-df.head()
+#df.head()
 
 df_temp = df
 df_temp = df_temp.drop(['Fecha', 'Fecha_v2', 'Hora'], axis=1)
@@ -59,6 +60,8 @@ df_temp = df_temp.drop(['Fecha', 'Fecha_v2', 'Hora'], axis=1)
 #Guardar en un array las columnas de tipo numérico
 columnas = df_temp.columns
 
+st.write("""Calculando el promedio de cada columna numérica...""")
+st.write("""Agregando las filas con información faltante...""")
 #Calculamos el promedio de cada columna numérica y la agregamos a las filas con información faltante e imprimimos lo que se cambiará
 for c in columnas:
     mean = df[c].mean()
@@ -66,9 +69,9 @@ for c in columnas:
     df[c] = df[c].fillna(mean)
 
 #Verificación de valores vacíos
-print(df.isnull().any().any())
+st.write("Existencia de datos vacíos: " + str(df.isnull().any().any()))
 
-df.head()
+#df.head()
 
 #Reemplazar valores en 0 con los valores máximos de cada columna 
 for c in columnas:
