@@ -104,3 +104,84 @@ df.set_index("Fecha y Hora", drop=True, append=False, inplace=True, verify_integ
 
 st.write("""Conjunto de datos final:""")
 df
+
+#######Librerías#######
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+
+import re
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.stem.wordnet import WordNetLemmatizer
+import string
+
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score, GridSearchCV
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, f1_score
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.pipeline import Pipeline
+import xgboost as xgb
+seed = 4353
+
+data = df
+data.columns = data.columns.str.lower()
+data.isnull().sum()
+data.dropna(how='all',inplace=True)
+data.dropna(thresh=10,axis=0,inplace=True)
+data=data.drop([ 'año', 'mes', 'dia', 'hora'],axis=1)
+st.write("""Aplicando modelos de Random Forest, Decision Tree Regression, Support Vector Machine, Regresión Lineal:""")
+###Modelo de Regresión Lineal
+from sklearn.preprocessing import StandardScaler         
+from sklearn.model_selection import train_test_split      
+from sklearn.linear_model import LinearRegression         
+from sklearn.metrics import mean_squared_error,mean_absolute_error
+col_=data.columns.tolist()[2:]
+X=data[col_].drop('pm2.5 \n(ug/m3)',axis=1) 
+y=data['pm2.5 \n(ug/m3)'] 
+X = X.apply(pd.to_numeric, errors='coerce')
+y = y.apply(pd.to_numeric, errors='coerce')
+X_train, X_test, y_train, y_test=train_test_split(X,y,test_size=0.3, random_state=42)
+lr=LinearRegression()
+lr_model=lr.fit(X_train,y_train)
+y_pred=lr_model.predict(X_test)                      
+rmse=np.sqrt(mean_squared_error(y_test,y_pred))      
+###Modelo de Random Forest
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestRegressor  
+rf_reg=RandomForestRegressor()
+rf_model=rf_reg.fit(X_train,y_train)           
+y_pred_rf=rf_model.predict(X_test)  
+rmseRF=np.sqrt(mean_squared_error(y_test,y_pred_rf))
+###Modelo de Random Forest
+from sklearn.tree import DecisionTreeRegressor         
+from sklearn.model_selection import train_test_split  
+from sklearn.model_selection import GridSearchCV        
+dt_one_reg=DecisionTreeRegressor()
+dt_model=dt_one_reg.fit(X_train,y_train)         
+y_pred_dtone=dt_model.predict(X_test)            
+rmseMt=np.sqrt(mean_squared_error(y_pred_dtone,y_test))
+###Modelo de Support Vector Machine
+from sklearn.svm import SVR          
+sv_reg=SVR()
+sv_model=sv_reg.fit(X_train,y_train)
+y_pred_sv=sv_model.predict(X_test) 
+rmseSVM=np.sqrt(mean_squared_error(y_test,y_pred_sv))
+###Comparando los modelos según el RMSE
+st.write("""Comparando los modelos según el RMSE: """)
+model = ['MLR', 'Random Forest', 'Tree Regression', 'SVM']
+acc = [rmse, rmseRF, rmseMt, rmseSVM]
+
+sns.set_style("whitegrid")
+plt.figure(figsize=(10,5))
+plt.yticks(np.arange(0, 100, 10))
+plt.ylabel("RMSE")
+plt.xlabel("Modelos de Machine Learning")
+sns.barplot(x=model, y=acc)
+plt.xticks(rotation=45)
+st.pyplot(plt)
