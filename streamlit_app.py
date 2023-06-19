@@ -57,7 +57,7 @@ datos = uploaded_file
 df = pd.read_excel(datos, sheet_name='Sheet1', index_col = 0)
 #df = pd.read_excel(datos, sheet_name='data')
 
-df.head()
+df
 
 #Eliminación de columnas con instancias únicas
 df = df.drop(['CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOMBRE DE LA UO'], axis=1)
