@@ -1,4 +1,7 @@
 import streamlit as st
+import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
 
 st.set_page_config(
     page_title="Proyecto de Software Inteligente",
@@ -24,9 +27,6 @@ st.markdown(
     - Inclusión de predicción
     """
 )
-
-import pandas as pd
-from io import StringIO
 
 st.markdown("# Sección I - Preprocesamiento")
 st.write(
