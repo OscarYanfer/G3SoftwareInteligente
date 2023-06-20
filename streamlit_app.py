@@ -298,7 +298,7 @@ if uploaded_file is not None:
         X_train_fs = fs.transform(X)
         # transform test input data
         X_test_fs = fs.transform(X)
-        return X_fs, fs
+        return X_train_fs, fs
     # feature selection
     X_fs, fs = select_features_anova(df_float_z_score, Y)
 
