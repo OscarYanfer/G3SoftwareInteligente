@@ -75,10 +75,10 @@ if uploaded_file is not None:
     df = df.drop(['CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOMBRE DE LA UO'], axis=1)
     #Verificación de valores vacíos
     with st.spinner("Confirmación de datos vacios..."):
-        time.sleep(3)
+        time.sleep(1)
     st.write("Existencia de datos vacíos: " + str(df.isnull().any().any()))
     with st.spinner("Filtración de valores pertenecientes al primer semestre del año 2021..."):
-        time.sleep(3)
+        time.sleep(1)
     st.write("""Valores pertenecientes al primer semestre del año 2021, filtrado""")
     #Filtración de valores pertenecientes al primer semestre del año 2021
     df = df.loc[(df['Fecha_v2'] >= '2021-01-01')
@@ -89,10 +89,10 @@ if uploaded_file is not None:
     #Guardar en un array las columnas de tipo numérico
     columnas = df_temp.columns
     with st.spinner("Calculando el promedio de cada columna numérica..."):
-        time.sleep(3)
+        time.sleep(1)
     st.write("""Promedio de cada columna numérica, calculado""")
     with st.spinner("Agregando las filas con información faltante..."):
-        time.sleep(3)
+        time.sleep(1)
     st.write("""Información faltante, agregada""")
     #Calculamos el promedio de cada columna numérica y la agregamos a las filas con información faltante e imprimimos lo que se cambiará
     for c in columnas:
@@ -102,11 +102,11 @@ if uploaded_file is not None:
 
     #Verificación de valores vacíos
     with st.spinner("Confirmación de datos vacios..."):
-        time.sleep(3)
+        time.sleep(1)
     st.write("Existencia de datos vacíos: " + str(df.isnull().any().any()))
 
     with st.spinner("Reemplazando valores en 0 con los valores máximos de cada columna..."):
-        time.sleep(3)
+        time.sleep(1)
     st.write("""Valores en 0 con los valores máximos de cada columna, reemplazado""")
     #Reemplazar valores en 0 con los valores máximos de cada columna 
     for c in columnas:
@@ -121,7 +121,7 @@ if uploaded_file is not None:
     df['Dia'] = df['Fecha'].dt.day 
 
     with st.spinner("Reordenando columnas..."):
-        time.sleep(3)
+        time.sleep(1)
     st.write("""Columnas reordenadas""")
     #Reordenamos las columnas
     df = df[['Fecha y Hora', 'Fecha', 'Año', 'Mes', 'Dia', 'Hora', 'CO (ug/m3)', 'H2S (ug/m3)', 'NO2 (ug/m3)', 'O3 (ug/m3)',
