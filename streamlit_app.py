@@ -274,7 +274,7 @@ if uploaded_file is not None:
     Variable = df_feature1['Variable'].to_numpy()
 
     importCHI,ax=plt.subplots(figsize=(10,10))
-
+    st.markdown("## Chi cuadrado - Variabe más importante (no numérico)")
     plt.yticks(fontsize= 13)
     plt.xticks(fontsize= 12)
     plt.ylabel("Variables", fontsize=25)
@@ -283,4 +283,43 @@ if uploaded_file is not None:
     st.pyplot() 
     
     st.markdown("## Filtro ANOVA (variable no numérico)")
+    from sklearn import preprocessing
+    df_float_z_score=pd.DataFrame(preprocessing.scale(df_float))
+    # feature selection
+    from sklearn.feature_selection import SelectKBest
+    from sklearn.feature_selection import f_classif
+    from matplotlib import pyplot
+    def select_features_anova(X, y):
+        # configure to select all features
+        fs = SelectKBest(score_func=f_classif, k='all')
+        # learn relationship from training data
+        fs.fit(X, y)
+        # transform train input data
+        X_train_fs = fs.transform(X)
+        # transform test input data
+        X_test_fs = fs.transform(X)
+        return X_fs, fs
+    # feature selection
+    X_fs, fs = select_features_anova(df_float_z_score, Y)
+
+    feature=[]
+    for i in range(len(fs.scores_)):
+        #print('Feature %s: %f' % (df_numericas_limp_tr.columns[i], fs.scores_[i]))
+        feature.append([df_float.columns[i],fs.scores_[i]])
+    df_feature_num = pd.DataFrame(feature, columns = ['Variable','Score'])
+
+    df_feature_num=df_feature_num.sort_values('Score',ascending=False).reset_index(drop=True)
+    #Score de variables importantes mediante filtro anova (numéricos)
+    df_feature1=df_feature_num.iloc[0:13].sort_values('Score',ascending=True).reset_index(drop=True)
+    Peso = df_feature1['Score'].to_numpy()
+    Variable = df_feature1['Variable'].to_numpy()
+
+    importCHI,ax=plt.subplots(figsize=(10,10))
+
+    plt.yticks(fontsize= 13)
+    plt.xticks(fontsize= 12)
+    plt.ylabel("Variables", fontsize=25)
+    plt.xlabel("Score", fontsize=25)
+    plt.barh(Variable,Peso)
+    st.pyplot() 
     
