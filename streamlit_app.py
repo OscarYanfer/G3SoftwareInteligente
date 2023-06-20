@@ -22,6 +22,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split      
 from sklearn.linear_model import LinearRegression         
 from sklearn.metrics import mean_squared_error,mean_absolute_error
+import time
 warnings.filterwarnings("ignore")
 
 #Título de la página
@@ -75,6 +76,8 @@ if uploaded_file is not None:
     df_temp = df_temp.drop(['Fecha', 'Fecha_v2', 'Hora'], axis=1)
     #Guardar en un array las columnas de tipo numérico
     columnas = df_temp.columns
+    with st.spinner("Realizando tarea..."):
+        time.sleep(3)
     st.write("""Calculando el promedio de cada columna numérica...""")
     st.write("""Agregando las filas con información faltante...""")
     #Calculamos el promedio de cada columna numérica y la agregamos a las filas con información faltante e imprimimos lo que se cambiará
