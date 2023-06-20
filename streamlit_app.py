@@ -30,6 +30,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from sklearn.metrics import mean_squared_error
 import seaborn as sns
+import missingno as msno 
 import matplotlib.pyplot as plt
 warnings.filterwarnings("ignore")
 
@@ -212,7 +213,6 @@ if uploaded_file is not None:
     #Sección III
     st.markdown("# Sección III - Filtro ANOVA (Reducción de atributos)")
     #Convertir en 0 y 1 los valores de PM2.5, Niveles menores a 15 se consideran buenos, mientras que mayores se consideran perjudicial para el ser humano
-    df
     df['pm2.5 \n(ug/m3)']=df['pm2.5 \n(ug/m3)'].astype(float)
     df["pm2.5 \n(ug/m3)"]=np.where(df['pm2.5 \n(ug/m3)']<15, 0, 1)
     st.write("""NOTA: Convertir en 0 y 1 los valores de PM2.5, Niveles menores a 15 se consideran buenos, mientras que mayores se consideran perjudicial para el ser humano""")
@@ -225,12 +225,9 @@ if uploaded_file is not None:
     #Transformamos los atributos sobrantes a float64
     vf_float=X.columns[X.dtypes=="float64"]
     df_float=X.loc[:,vf_float]
-    df_float
     #Las variables no numéricas se transformaran a tipo objeto
     vf_string=X.columns[X.dtypes=="object"]
     df_string=X.loc[:,vf_string]
-    df_string
     #Verificamos la existencia de valores perdidos
-    import missingno as msno 
     msno.bar(df_float)
     st.pyplot()
