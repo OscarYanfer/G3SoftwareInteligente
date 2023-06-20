@@ -211,7 +211,7 @@ if uploaded_file is not None:
         st.write("Selecciona al menos un modelo para mostrar.")
 
     #Sección III
-    st.markdown("# Sección III - Filtro ANOVA (Reducción de atributos)")
+    st.markdown("# Sección III - Reducción de variables")
     #Convertir en 0 y 1 los valores de PM2.5, Niveles menores a 15 se consideran buenos, mientras que mayores se consideran perjudicial para el ser humano
     df['pm2.5 \n(ug/m3)']=df['pm2.5 \n(ug/m3)'].astype(float)
     df["pm2.5 \n(ug/m3)"]=np.where(df['pm2.5 \n(ug/m3)']<15, 0, 1)
@@ -229,6 +229,58 @@ if uploaded_file is not None:
     vf_string=X.columns[X.dtypes=="object"]
     df_string=X.loc[:,vf_string]
     #Verificamos la existencia de valores perdidos
+    st.write("""Verificación de la existencia de valores perdidos""")
     st.set_option('deprecation.showPyplotGlobalUse', False)
     msno.bar(df_float)
     st.pyplot()
+    msno.bar(df_string)
+    st.pyplot()
+        
+    from sklearn.preprocessing import LabelEncoder
+    from sklearn.preprocessing import OrdinalEncoder
+    from sklearn.feature_selection import SelectKBest
+    from sklearn.feature_selection import chi2
+    from matplotlib import pyplot
+    # Preparacion
+    def prepare_inputs(X):
+        oe = OrdinalEncoder()
+        oe.fit(X)
+        X_enc = oe.transform(X)
+        return X_enc
+
+    # feature selection
+    def select_features_chi2(X, Y):
+        fs = SelectKBest(score_func=chi2, k='all')
+        fs.fit(X, Y)
+        X_fs = fs.transform(X)
+        return X_fs,fs
+    #Preparamos la entradas
+    X_train_enc= prepare_inputs(df_string)
+
+    # feature selection
+    _fs,fs = select_features_chi2(X_train_enc,Y)
+    # what are scores for the features
+    feature=[]
+    for i in range(len(fs.scores_)):
+        #print('Feature %s: %f' % (df_cat_tr.columns[i], fs.scores_[i]))
+        feature.append([df_string.columns[i],fs.scores_[i]])
+    df_feature = pd.DataFrame(feature, columns = ['Variable','Score'])
+
+    df_feature=df_feature.sort_values('Score',ascending=False).reset_index(drop=True)
+    #df_feature.iloc[0:50].to_excel("var_imp_cat.xlsx")
+
+    df_feature1=df_feature.iloc[0:10].sort_values('Score',ascending=True).reset_index(drop=True)
+    Peso = df_feature1['Score'].to_numpy()
+    Variable = df_feature1['Variable'].to_numpy()
+
+    importCHI,ax=plt.subplots(figsize=(10,10))
+
+    plt.yticks(fontsize= 13)
+    plt.xticks(fontsize= 12)
+    plt.ylabel("Variables", fontsize=25)
+    plt.xlabel("Score", fontsize=25)
+    plt.barh(Variable,Peso)
+    st.pyplot() 
+    
+    st.markdown("## Filtro ANOVA (variable no numérico)")
+    
