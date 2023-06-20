@@ -148,6 +148,8 @@ if uploaded_file is not None:
     data.dropna(thresh=10,axis=0,inplace=True)
     data=data.drop([ 'año', 'mes', 'dia', 'hora'],axis=1)
 
+    df
+
     ###Interactivo
     st.title("Comparación de modelos de Machine Learning")
     show_linear_regression = st.checkbox("Mostrar modelo de Regresión Lineal")
