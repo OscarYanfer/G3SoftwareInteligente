@@ -212,7 +212,7 @@ if uploaded_file is not None:
 
     #Sección III
     st.markdown("# Sección III - Filtro ANOVA (Reducción de atributos)")
-
+    datas
     #Convertir en 0 y 1 los valores de PM2.5, Niveles menores a 15 se consideran buenos, mientras que mayores se consideran perjudicial para el ser humano
     datas['PM2.5 \n(ug/m3)']=datas['PM2.5 \n(ug/m3)'].astype(float)
     datas["PM2.5 \n(ug/m3)"]=np.where(datas['PM2.5 \n(ug/m3)']<15, 0, 1)
