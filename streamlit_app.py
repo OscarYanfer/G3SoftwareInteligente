@@ -80,8 +80,10 @@ if uploaded_file is not None:
     columnas = df_temp.columns
     with st.spinner("Calculando el promedio de cada columna numérica..."):
         time.sleep(3)
+    st.write("""Promedio de cada columna numérica, calculado""")
     with st.spinner("Agregando las filas con información faltante..."):
         time.sleep(3)
+    st.write("""Información faltante, agregada""")
     #Calculamos el promedio de cada columna numérica y la agregamos a las filas con información faltante e imprimimos lo que se cambiará
     for c in columnas:
         mean = df[c].mean()
@@ -93,7 +95,9 @@ if uploaded_file is not None:
         time.sleep(3)
     st.write("Existencia de datos vacíos: " + str(df.isnull().any().any()))
 
-    st.write("""Reemplazando valores en 0 con los valores máximos de cada columna...""")
+    with st.spinner("Reemplazando valores en 0 con los valores máximos de cada columna..."):
+        time.sleep(3)
+    st.write("""Valores en 0 con los valores máximos de cada columna, reemplazado""")
     #Reemplazar valores en 0 con los valores máximos de cada columna 
     for c in columnas:
         max = df[c].max()
@@ -106,7 +110,9 @@ if uploaded_file is not None:
     df['Mes'] = df['Fecha'].dt.month 
     df['Dia'] = df['Fecha'].dt.day 
 
-    st.write("""Reordenando columnas...""")
+    with st.spinner("Reordenando columnas..."):
+        time.sleep(3)
+    st.write("""Columnas reordenadas""")
     #Reordenamos las columnas
     df = df[['Fecha y Hora', 'Fecha', 'Año', 'Mes', 'Dia', 'Hora', 'CO (ug/m3)', 'H2S (ug/m3)', 'NO2 (ug/m3)', 'O3 (ug/m3)',
        'PM10 \n(ug/m3)', 'PM2.5 \n(ug/m3)', 'SO2 (ug/m3)', 'Ruido (dB)', 'UV',
