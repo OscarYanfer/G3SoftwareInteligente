@@ -66,6 +66,8 @@ if uploaded_file is not None:
     #Eliminación de columnas con instancias únicas
     df = df.drop(['CODIGO DE LA ENTIDAD', 'CODIGO UBIGEO INEI', 'CODIGO PAIS ', 'NOMBRE DE LA UO'], axis=1)
     #Verificación de valores vacíos
+    with st.spinner("Confirmación de datos vacios..."):
+        time.sleep(3)
     st.write("Existencia de datos vacíos: " + str(df.isnull().any().any()))
     st.write("""Filtración de valores pertenecientes al primer semestre del año 2021...""")
     #Filtración de valores pertenecientes al primer semestre del año 2021
@@ -76,10 +78,10 @@ if uploaded_file is not None:
     df_temp = df_temp.drop(['Fecha', 'Fecha_v2', 'Hora'], axis=1)
     #Guardar en un array las columnas de tipo numérico
     columnas = df_temp.columns
-    with st.spinner("Realizando tarea..."):
+    with st.spinner("Calculando el promedio de cada columna numérica..."):
         time.sleep(3)
-    st.write("""Calculando el promedio de cada columna numérica...""")
-    st.write("""Agregando las filas con información faltante...""")
+    with st.spinner("Agregando las filas con información faltante..."):
+        time.sleep(3)
     #Calculamos el promedio de cada columna numérica y la agregamos a las filas con información faltante e imprimimos lo que se cambiará
     for c in columnas:
         mean = df[c].mean()
@@ -87,6 +89,8 @@ if uploaded_file is not None:
         df[c] = df[c].fillna(mean)
 
     #Verificación de valores vacíos
+    with st.spinner("Confirmación de datos vacios..."):
+        time.sleep(3)
     st.write("Existencia de datos vacíos: " + str(df.isnull().any().any()))
 
     st.write("""Reemplazando valores en 0 con los valores máximos de cada columna...""")
