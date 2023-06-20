@@ -282,7 +282,7 @@ if uploaded_file is not None:
     plt.barh(Variable,Peso)
     st.pyplot() 
     
-    st.markdown("## Filtro ANOVA (variable no numérico)")
+    st.markdown("## Filtro ANOVA - Variabe más importante (numérico)")
     from sklearn import preprocessing
     df_float_z_score=pd.DataFrame(preprocessing.scale(df_float))
     # feature selection
