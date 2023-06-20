@@ -43,14 +43,14 @@ st.set_page_config(
 st.write("# Predicción de la calidad del aire en Miraflores - Lima")
 st.markdown(
     """
-    ## Grupo G - Integrantes:
+    ## Grupo 3 - Integrantes:
     | Nombre | Participación|
     |--|--|
-    | Oscar Stalyn, Yanfer Laura | 19200260 |
+    | Oscar Stalyn Yanfer Laura | 19200260 |
     | Diego Tharlez Montalvo Ortega | 19200088 |
     | Jorge Luis Quispe Alarcon | 19200XXX |
-    | Wilker Edison,Atalaya Ramirez | 19200XXX |
-    | Anthony Elias,Ricse Perez | 19200XXX |
+    | Wilker Edison Atalaya Ramirez | 19200XXX |
+    | Anthony Elias Ricse Perez | 19200XXX |
 
     ## Especificaciones:
     **Proyecto desplegado desde Streamlit**
@@ -64,7 +64,7 @@ st.markdown(
 st.markdown("# Sección I - Preprocesamiento")
 
 #cargar el archivo
-uploaded_file = st.file_uploader("Cargar archivo Excel", type=["xlsx"])
+uploaded_file = st.file_uploader("Cargar archivo Excel:", type=["xlsx"])
 
 if uploaded_file is not None:
     #Columna iniciasl será el index
