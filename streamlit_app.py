@@ -142,7 +142,7 @@ if uploaded_file is not None:
     
     seed = 4353
     data = df
-    datas = data
+    datas = df
     data.columns = data.columns.str.lower()
     data.isnull().sum()
     data.dropna(how='all',inplace=True)
