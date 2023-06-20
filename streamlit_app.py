@@ -148,8 +148,6 @@ if uploaded_file is not None:
     data.dropna(thresh=10,axis=0,inplace=True)
     data=data.drop([ 'año', 'mes', 'dia', 'hora'],axis=1)
 
-    df
-
     ###Interactivo
     st.title("Comparación de modelos de Machine Learning")
     show_linear_regression = st.checkbox("Mostrar modelo de Regresión Lineal")
@@ -215,15 +213,15 @@ if uploaded_file is not None:
     st.markdown("# Sección III - Filtro ANOVA (Reducción de atributos)")
     #Convertir en 0 y 1 los valores de PM2.5, Niveles menores a 15 se consideran buenos, mientras que mayores se consideran perjudicial para el ser humano
     df
-    df['PM2.5 \n(ug/m3)']=df['PM2.5 \n(ug/m3)'].astype(float)
-    df["PM2.5 \n(ug/m3)"]=np.where(df['PM2.5 \n(ug/m3)']<15, 0, 1)
+    df['pm2.5 \n(ug/m3)']=df['pm2.5 \n(ug/m3)'].astype(float)
+    df["pm2.5 \n(ug/m3)"]=np.where(df['pm2.5 \n(ug/m3)']<15, 0, 1)
     st.write("""NOTA: Convertir en 0 y 1 los valores de PM2.5, Niveles menores a 15 se consideran buenos, mientras que mayores se consideran perjudicial para el ser humano""")
     with st.spinner("Realizando conversión..."):
         time.sleep(1)
     st.write("""Conversión realizada""")
     #División de variable objetivo
-    X=df.drop(['PM2.5 \n(ug/m3)'], axis=1)
-    Y=df["PM2.5 \n(ug/m3)"]
+    X=df.drop(['pm2.5 \n(ug/m3)'], axis=1)
+    Y=df["pm2.5 \n(ug/m3)"]
     #Transformamos los atributos sobrantes a float64
     vf_float=X.columns[X.dtypes=="float64"]
     df_float=X.loc[:,vf_float]
