@@ -229,5 +229,6 @@ if uploaded_file is not None:
     vf_string=X.columns[X.dtypes=="object"]
     df_string=X.loc[:,vf_string]
     #Verificamos la existencia de valores perdidos
+    st.set_option('deprecation.showPyplotGlobalUse', False)
     msno.bar(df_float)
     st.pyplot()
