@@ -407,12 +407,11 @@ if uploaded_file is not None:
     st.markdown("#### Evaluación del modelo")
     prediction=regressor.predict(X_test)
     diff = y_test - prediction
-    sns.distplot(diff)
+    plt.figure(figsize=(8, 6))
+    sns.histplot(diff, kde=True)
     plt.title('Distribución de la diferencia entre y_test y prediction')
     plt.xlabel('Diferencia')
-    plt.ylabel('Densidad')
-    # Muestra el gráfico en Streamlit
-    st.pyplot(plt)
+    plt.ylabel('Frecuencia')
     
     plt.scatter(y_test,prediction)
     st.pyplot()
