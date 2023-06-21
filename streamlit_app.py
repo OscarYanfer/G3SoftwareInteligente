@@ -444,11 +444,10 @@ if uploaded_file is not None:
     st.write("""Cargando...""")
     rf_random.best_score_
     predictions=rf_random.predict(X_test)
-    fig, ax = plt.subplots()
-    sns.distplot(y_test-predictions)
-    ax.set_title('Distribución de la diferencia entre y_test y predictions')
-    ax.set_xlabel('Diferencia')
-    ax.set_ylabel('Densidad')
+    from sklearn import metrics
+    print('MAE:', metrics.mean_absolute_error(y_test, predictions))
+    print('MSE:', metrics.mean_squared_error(y_test, predictions))
+    print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
 
     # Muestra el gráfico en Streamlit
     st.pyplot(fig)
