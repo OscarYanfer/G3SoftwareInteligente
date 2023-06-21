@@ -411,10 +411,10 @@ if uploaded_file is not None:
 
     # Crea el gráfico de distribución con seaborn
     plt.figure(figsize=(8, 6))
-    sns.distplot(diff)
+    sns.histplot(diff, kde=True)
     plt.title('Distribución de la diferencia entre y_test y prediction')
     plt.xlabel('Diferencia')
-    plt.ylabel('Densidad')
+    plt.ylabel('Frecuencia')
 
     # Muestra el gráfico en Streamlit
     st.pyplot(plt)
