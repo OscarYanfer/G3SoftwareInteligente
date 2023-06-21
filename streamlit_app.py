@@ -410,4 +410,6 @@ if uploaded_file is not None:
     plt.title('Gráfico de dispersión entre y_test y prediction')
     plt.xlabel('y_test')
     plt.ylabel('prediction')
-    plt.show()
+
+    # Muestra el gráfico en Streamlit
+    st.pyplot(plt)
