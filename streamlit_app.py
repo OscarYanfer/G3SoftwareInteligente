@@ -406,16 +406,11 @@ if uploaded_file is not None:
     score=cross_val_score(regressor,X,y,cv=5)
     st.markdown("#### Evaluación del modelo")
     prediction=regressor.predict(X_test)
+    plt.figure(figsize=(8, 6))
+    sns.distplot(y_test-prediction)
+    plt.title('Distribución de la diferencia entre y_test y prediction')
+    plt.xlabel('Diferencia')
+    plt.ylabel('Densidad')
+    # Muestra el gráfico en Streamlit
+    st.pyplot(plt)
     
-    diff = y_test - prediction
-    # Configura manualmente pandas para manejar valores infinitos
-    with pd.option_context('mode.use_inf_as_null', True):
-        # Crea el gráfico de distribución con seaborn
-        plt.figure(figsize=(8, 6))
-        sns.histplot(diff, kde=True)
-        plt.title('Distribución de la diferencia entre y_test y prediction')
-        plt.xlabel('Diferencia')
-        plt.ylabel('Frecuencia')
-
-        # Muestra el gráfico en Streamlit
-        st.pyplot(plt)
