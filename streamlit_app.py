@@ -383,7 +383,15 @@ if uploaded_file is not None:
 
     #Sustentación de los valores obtenidos por el FILTRO ANOVA.
     # Gráfico del plot de la importancia de los atributos para una mejor visualización, el cual coincide con el filtro anova
-    st.write("""Variables más importantes:""")
+    # Genera los datos de ejemplo
     feat_importances = pd.Series(model.feature_importances_, index=X.columns)
-    feat_importances.nlargest(5).plot(kind='barh')
-    st.pyplot() 
+
+    # Obtén los 5 valores más grandes y crea el gráfico de barras horizontal
+    top_features = feat_importances.nlargest(5)
+    fig, ax = plt.subplots()
+    top_features.plot(kind='barh')
+    plt.title('Importancia de características')
+    plt.xlabel('Importancia')
+    plt.ylabel('Características')
+    # Muestra el gráfico en Streamlit
+    st.pyplot(fig)
