@@ -404,6 +404,9 @@ if uploaded_file is not None:
     regressor.fit(X_train,y_train)
     from sklearn.model_selection import cross_val_score
     score=cross_val_score(regressor,X,y,cv=5)
+
+
+
     st.markdown("#### Hiperparametros")
     RandomForestRegressor()
     from sklearn.model_selection import RandomizedSearchCV
@@ -433,7 +436,9 @@ if uploaded_file is not None:
     # Busca en 100 combinaciones diferentes
     rf_random = RandomizedSearchCV(estimator = rf, param_distributions = random_grid,scoring='neg_mean_squared_error', n_iter =     100, cv = 5, verbose=2, random_state=42, n_jobs = 1)
     rf_random.fit(X_train,y_train)
+    st.write("""Cargando...""")
     rf_random.best_params_
+    st.write("""Cargando...""")
     rf_random.best_score_
     predictions=rf_random.predict(X_test)
     fig, ax = plt.subplots()
