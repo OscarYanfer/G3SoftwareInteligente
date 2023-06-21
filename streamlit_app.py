@@ -445,9 +445,13 @@ if uploaded_file is not None:
     rf_random.best_score_
     predictions=rf_random.predict(X_test)
     from sklearn import metrics
-    print('MAE:', metrics.mean_absolute_error(y_test, predictions))
-    print('MSE:', metrics.mean_squared_error(y_test, predictions))
-    print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
+    mae = metrics.mean_absolute_error(y_test, predictions)
+    mse = metrics.mean_squared_error(y_test, predictions)
+    rmse = np.sqrt(mse)
 
+    # Muestra las métricas en Streamlit
+    st.write('MAE:', mae)
+    st.write('MSE:', mse)
+    st.write('RMSE:', rmse)
     # Muestra el gráfico en Streamlit
     st.pyplot(fig)
