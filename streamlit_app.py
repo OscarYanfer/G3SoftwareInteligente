@@ -406,11 +406,12 @@ if uploaded_file is not None:
     score=cross_val_score(regressor,X,y,cv=5)
     st.markdown("#### Evaluación del modelo")
     prediction = regressor.predict(X_test)
-    plt.figure(figsize=(8, 6))
-    sns.histplot(y_test-prediction, kde=True)
-    plt.title('Distribución de la diferencia entre y_test y prediction')
-    plt.xlabel('Diferencia')
-    plt.ylabel('Densidad')
-    # Muestra el gráfico en Streamlit
-    st.pyplot(plt)
-    
+    # Ajustar la configuración de Pandas
+    with pd.option_context('mode.use_inf_as_na', True):
+        plt.figure(figsize=(8, 6))
+        sns.histplot(y_test-prediction, kde=True)
+        plt.title('Distribución de la diferencia entre y_test y prediction')
+        plt.xlabel('Diferencia')
+        plt.ylabel('Densidad')
+        # Muestra el gráfico en Streamlit
+        st.pyplot(plt)
