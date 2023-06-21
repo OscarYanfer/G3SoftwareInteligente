@@ -406,5 +406,12 @@ if uploaded_file is not None:
     score=cross_val_score(regressor,X,y,cv=5)
     st.markdown("#### Evaluación del modelo")
     prediction=regressor.predict(X_test)
-    aa = plt.scatter(y_test, prediction)
-    st.pyplot(aa)
+    
+    fig, ax = plt.subplots()
+    ax.scatter(y_test, prediction)
+    ax.set_title('Gráfico de dispersión entre y_test y prediction')
+    ax.set_xlabel('y_test')
+    ax.set_ylabel('prediction')
+
+    # Muestra el gráfico en Streamlit
+    st.pyplot(fig)  
