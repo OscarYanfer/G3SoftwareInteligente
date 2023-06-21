@@ -404,18 +404,43 @@ if uploaded_file is not None:
     regressor.fit(X_train,y_train)
     from sklearn.model_selection import cross_val_score
     score=cross_val_score(regressor,X,y,cv=5)
-    st.markdown("#### Evaluación del modelo")
-    prediction=regressor.predict(X_test)
-    
+    st.markdown("#### Hiperparametros")
+    RandomForestRegressor()
+    from sklearn.model_selection import RandomizedSearchCV
+    n_estimators = [int(x) for x in np.linspace(start = 100, stop = 1200, num = 12)]
+    # Randorizamos la búsqueda de la data
+    # Número de árboles en el random forest
+    n_estimators = [int(x) for x in np.linspace(start = 100, stop = 1200, num = 12)]
+    # Número de atributos a considerar en cada split
+    max_features = ['auto', 'sqrt']
+    # Máximo de número de árboles
+    max_depth = [int(x) for x in np.linspace(5, 30, num = 6)]
+    # max_depth.append(None)
+    # Mínimo de número de ejemplares requerido para separar un nodo
+    min_samples_split = [2, 5, 10, 15, 100]
+    # Número mínimo de muestras requeridas en cada nodo de hoja
+    min_samples_leaf = [1, 2, 5, 10]
+    # Creamos un grid aleatorio
+    random_grid = {'n_estimators': n_estimators,
+                'max_features': max_features,
+                'max_depth': max_depth,
+                'min_samples_split': min_samples_split,
+                'min_samples_leaf': min_samples_leaf}
+    # Usaremos el grid aleatorio para buscar los mejores hiperparámetros
+    # Primero se crea el modelo base para afinar
+    rf = RandomForestRegressor()
+    # Búsqueda aleatoria de parámetros, mediante validación cruzada 3 veces,
+    # Busca en 100 combinaciones diferentes
+    rf_random = RandomizedSearchCV(estimator = rf, param_distributions = random_grid,scoring='neg_mean_squared_error', n_iter =     100, cv = 5, verbose=2, random_state=42, n_jobs = 1)
+    rf_random.fit(X_train,y_train)
+    rf_random.best_params_
+    rf_random.best_score_
+    predictions=rf_random.predict(X_test)
     fig, ax = plt.subplots()
-    ax.scatter(y_test, prediction)
-    ax.set_title('Gráfico de dispersión entre y_test y prediction')
-    ax.set_xlabel('y_test')
-    ax.set_ylabel('prediction')
-
-    # Establece el rango en 100 para ambos ejes
-    ax.set_xlim(0, 100)
-    ax.set_ylim(0, 100)
+    sns.distplot(y_test-predictions)
+    ax.set_title('Distribución de la diferencia entre y_test y predictions')
+    ax.set_xlabel('Diferencia')
+    ax.set_ylabel('Densidad')
 
     # Muestra el gráfico en Streamlit
-    st.pyplot(fig)  
+    st.pyplot(fig)
