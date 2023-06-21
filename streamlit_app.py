@@ -387,7 +387,7 @@ if uploaded_file is not None:
     feat_importances = pd.Series(model.feature_importances_, index=X.columns)
 
     # Obtén los 5 valores más grandes y crea el gráfico de barras horizontal
-    top_features = feat_importances.nlargest(5)
+    top_features = feat_importances.nlargest(3)
     fig, ax = plt.subplots()
     top_features.plot(kind='barh')
     plt.title('Importancia de características')
@@ -395,3 +395,18 @@ if uploaded_file is not None:
     plt.ylabel('Características')
     # Muestra el gráfico en Streamlit
     st.pyplot(fig)
+
+    st.markdown("#### Train Test split")
+    from sklearn.model_selection import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+    from sklearn.ensemble import RandomForestRegressor
+    regressor=RandomForestRegressor()
+    regressor.fit(X_train,y_train)
+    from sklearn.model_selection import cross_val_score
+    score=cross_val_score(regressor,X,y,cv=5)
+    st.markdown("#### Evaluación del modelo")
+    prediction=regressor.predict(X_test)
+    b = sns.distplot(y_test-prediction)
+    st.pyplot(b.figure)
+    plt.scatter(y_test,prediction)
+    st.pyplot()
