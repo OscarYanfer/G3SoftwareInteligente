@@ -341,3 +341,19 @@ if uploaded_file is not None:
     heatmap = sns.heatmap(data.isnull(), yticklabels=False, cbar=False, cmap='viridis')
     plt.title('Mapa de calor de valores nulos')
     st.pyplot(heatmap.figure)
+
+    # Eliminamos los valores nulos si en el caso de que el conjunto de datos tenga pero no haya valores nulos que sean buenos
+    data=data.dropna()
+    
+    save=data["PM2.5 \n(ug/m3)"].copy()
+    data=data.drop("PM2.5 \n(ug/m3)",axis=1)
+    data["PM2.5 \n(ug/m3)"]=save
+
+    data=data.drop(['Fecha', 'Año', 'Mes', 'Dia', 'Hora'], axis=1)
+
+    # Asignamos los atirbutos dependientes e independientes
+    X=data.iloc[:,:-1] # Atributos independientes
+    y=data.iloc[:,-1] # Atributos dependientes
+
+    ## Revisamos los valores nulos
+    X.isnull()
