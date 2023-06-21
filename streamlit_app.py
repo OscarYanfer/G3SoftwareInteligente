@@ -357,10 +357,10 @@ if uploaded_file is not None:
 
     ## Revisamos los valores nulos
     X.isnull()
-    st.markdown("### Matriz de Correlación con Mapa de Calor")
-    st.markdown("#### La correlación indica cómo se relacionan las características entre sí o con la variable de destino.")
-    st.markdown("#### La correlación puede ser positiva (el aumento de un valor de característica aumenta el valor de la variable objetivo) o negativa (el aumento de un valor de característica disminuye el valor de la variable objetivo)")
-    st.markdown("#### El mapa de calor facilita la identificación de qué características están más relacionadas con la variable objetivo, trazaremos un mapa de calor de las características correlacionadas utilizando la biblioteca seaborn.")
+    st.markdown("#### Matriz de Correlación con Mapa de Calor")
+    st.markdown("##### La correlación indica cómo se relacionan las características entre sí o con la variable de destino.")
+    st.markdown("##### La correlación puede ser positiva (el aumento de un valor de característica aumenta el valor de la variable objetivo) o negativa (el aumento de un valor de característica disminuye el valor de la variable objetivo).")
+    st.markdown("##### El mapa de calor facilita la identificación de qué características están más relacionadas con la variable objetivo, trazaremos un mapa de calor de las características correlacionadas utilizando la biblioteca seaborn.")
 
     import seaborn as sns
     # Obtener correlaciones de cada entidad en el conjunto de datos
@@ -370,3 +370,20 @@ if uploaded_file is not None:
     # Plot heat map
     g=sns.heatmap(data[top_corr_features].corr(),annot=True,cmap="RdYlGn")
     st.pyplot(g.figure)
+
+    st.markdown("#### Importancia de los atributos")
+    st.markdown("##### Puede obtener la importancia de los atributos de cada entidad del conjunto de datos se usa la propiedad model.feature_importances_ del modelo.")
+    st.markdown("##### La importancia de la característica le da una puntuación para cada columna de los datos, cuanto mayor sea la puntuación, más importante o relevante será la característica para su variable de salida.")
+    st.markdown("##### La importancia de la característica es una clase incorporada que viene con un Regresor Basado en árbol, usaremos Extratreesregressor para extraer las 10 características principales para el conjunto de datos.")
+    
+    from sklearn.ensemble import ExtraTreesRegressor
+    import matplotlib.pyplot as plt
+    model = ExtraTreesRegressor()
+    model.fit(X,y)
+
+    #Sustentación de los valores obtenidos por el FILTRO ANOVA.
+    # Gráfico del plot de la importancia de los atributos para una mejor visualización, el cual coincide con el filtro anova
+    st.write("""Variables más importantes:""")
+    feat_importances = pd.Series(model.feature_importances_, index=X.columns)
+    feat_importances.nlargest(5).plot(kind='barh')
+    st.pyplot() 
