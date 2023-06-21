@@ -345,11 +345,11 @@ if uploaded_file is not None:
     # Eliminamos los valores nulos si en el caso de que el conjunto de datos tenga pero no haya valores nulos que sean buenos
     data=data.dropna()
     
-    save=data["PM2.5 \n(ug/m3)"].copy()
-    data=data.drop("PM2.5 \n(ug/m3)",axis=1)
-    data["PM2.5 \n(ug/m3)"]=save
+    save=data["pm2.5 \n(ug/m3)"].copy()
+    data=data.drop("pm2.5 \n(ug/m3)",axis=1)
+    data["pm2.5 \n(ug/m3)"]=save
 
-    data=data.drop(['Fecha', 'Año', 'Mes', 'Dia', 'Hora'], axis=1)
+    data=data.drop(['fecha', 'año', 'mes', 'dia', 'hora'], axis=1)
 
     # Asignamos los atirbutos dependientes e independientes
     X=data.iloc[:,:-1] # Atributos independientes
