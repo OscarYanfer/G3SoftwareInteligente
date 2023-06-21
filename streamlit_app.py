@@ -407,9 +407,4 @@ if uploaded_file is not None:
     st.markdown("#### Evaluación del modelo")
     prediction=regressor.predict(X_test)
     plt.scatter(y_test, prediction)
-    plt.title('Gráfico de dispersión entre y_test y prediction')
-    plt.xlabel('y_test')
-    plt.ylabel('prediction')
-
-    # Muestra el gráfico en Streamlit
     st.pyplot(plt)
