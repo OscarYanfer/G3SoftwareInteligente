@@ -431,10 +431,13 @@ if uploaded_file is not None:
                 'min_samples_leaf': min_samples_leaf}
     # Usaremos el grid aleatorio para buscar los mejores hiperparámetros
     # Primero se crea el modelo base para afinar
+    st.write("""Cargando...""")
     rf = RandomForestRegressor()
     # Búsqueda aleatoria de parámetros, mediante validación cruzada 3 veces,
     # Busca en 100 combinaciones diferentes
+    st.write("""Cargando...""")
     rf_random = RandomizedSearchCV(estimator = rf, param_distributions = random_grid,scoring='neg_mean_squared_error', n_iter =     100, cv = 5, verbose=2, random_state=42, n_jobs = 1)
+    st.write("""Cargando...""")
     rf_random.fit(X_train,y_train)
     st.write("""Cargando...""")
     rf_random.best_params_
