@@ -357,3 +357,16 @@ if uploaded_file is not None:
 
     ## Revisamos los valores nulos
     X.isnull()
+    st.markdown("### Matriz de Correlación con Mapa de Calor")
+    st.markdown("#### La correlación indica cómo se relacionan las características entre sí o con la variable de destino.")
+    st.markdown("#### La correlación puede ser positiva (el aumento de un valor de característica aumenta el valor de la variable objetivo) o negativa (el aumento de un valor de característica disminuye el valor de la variable objetivo)")
+    st.markdown("#### El mapa de calor facilita la identificación de qué características están más relacionadas con la variable objetivo, trazaremos un mapa de calor de las características correlacionadas utilizando la biblioteca seaborn.")
+
+    import seaborn as sns
+    # Obtener correlaciones de cada entidad en el conjunto de datos
+    corrmat = data.corr()
+    top_corr_features = corrmat.index
+    plt.figure(figsize=(20,20))
+    # Plot heat map
+    g=sns.heatmap(data[top_corr_features].corr(),annot=True,cmap="RdYlGn")
+    st.pyplot(g.figure)
