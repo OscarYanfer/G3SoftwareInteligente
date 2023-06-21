@@ -323,4 +323,21 @@ if uploaded_file is not None:
     plt.barh(Variable,Peso)
     st.pyplot() 
     
-    df
+    #Sección 2
+    st.markdown("# Sección IV - Aplicación de Random Forest")
+    #Importamos las librerías
+    import pandas as pd
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+
+    # Ignoramos los avisos de warning
+    import warnings
+    warnings.filterwarnings('ignore')
+
+    # Importamos la data procesada
+    data = df
+    ## Revisamos los datos nulos
+    heatmap = sns.heatmap(data.isnull(), yticklabels=False, cbar=False, cmap='viridis')
+    plt.title('Mapa de calor de valores nulos')
+    st.pyplot(heatmap.figure)
