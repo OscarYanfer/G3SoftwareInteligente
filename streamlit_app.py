@@ -406,5 +406,5 @@ if uploaded_file is not None:
     score=cross_val_score(regressor,X,y,cv=5)
     st.markdown("#### Evaluación del modelo")
     prediction=regressor.predict(X_test)
-    plt.scatter(y_test, prediction)
-    st.pyplot(plt)
+    aa = plt.scatter(y_test, prediction)
+    st.pyplot(aa)
