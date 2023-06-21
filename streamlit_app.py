@@ -405,9 +405,9 @@ if uploaded_file is not None:
     from sklearn.model_selection import cross_val_score
     score=cross_val_score(regressor,X,y,cv=5)
     st.markdown("#### Evaluación del modelo")
-    prediction=regressor.predict(X_test)
+    prediction = regressor.predict(X_test)
     plt.figure(figsize=(8, 6))
-    sns.distplot(y_test-prediction)
+    sns.histplot(y_test-prediction, kde=True)
     plt.title('Distribución de la diferencia entre y_test y prediction')
     plt.xlabel('Diferencia')
     plt.ylabel('Densidad')
