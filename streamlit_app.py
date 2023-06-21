@@ -323,3 +323,4 @@ if uploaded_file is not None:
     plt.barh(Variable,Peso)
     st.pyplot() 
     
+    df
