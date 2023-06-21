@@ -413,5 +413,9 @@ if uploaded_file is not None:
     ax.set_xlabel('y_test')
     ax.set_ylabel('prediction')
 
+    # Establece el rango en 100 para ambos ejes
+    ax.set_xlim(0, 100)
+    ax.set_ylim(0, 100)
+
     # Muestra el gráfico en Streamlit
     st.pyplot(fig)  
