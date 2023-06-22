@@ -455,3 +455,29 @@ if uploaded_file is not None:
     st.write('RMSE:', rmse)
     # Muestra el gráfico en Streamlit
     st.pyplot(fig)
+
+    #Creamos una función para predecir
+    def predict_(CO, H2S, NO2, O3, PM10, SO2, R, UV, H, L, Lg, P, T):
+        co = int(CO)
+        h2 = float(H2S)
+        no2 = float(NO2)
+        o3 = float(O3)
+        p10 = int(PM10)
+        so = float(SO2)
+        r = float(R)
+        uv = float(UV)
+        h = float(H)
+        l = float(L)
+        lg = float(Lg)
+        p = float(P)
+        t = float(T)
+
+        x = [[co,h2,no2,o3,p10,so,r,uv,h,l,lg,p,t]]
+
+        return rf_random.predict(x)
+    
+    # Ingresamos una secuencia de data, según lo determinado en la función predict_
+    predictions = predict_(150.2, 15.2, 50.24, 48.15, 55.2, 11.4, 89.8, 4.8, 117.6, -13.0, -70.5, 1048.3, 19.4)[0]
+    if predictions:
+        st.write('Valor de PM 2.5 es:', predictions)
+    X
