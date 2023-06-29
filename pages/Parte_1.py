@@ -32,6 +32,7 @@ import seaborn as sns
 import missingno as msno 
 import matplotlib.pyplot as plt
 warnings.filterwarnings("ignore")
+from io import BytesIO
 
 #Sección I
 st.markdown("# Sección I - Preprocesamiento")
