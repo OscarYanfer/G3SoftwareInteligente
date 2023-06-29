@@ -111,8 +111,14 @@ if uploaded_file is not None:
     df
 
     if st.button('Exportar como Excel'):
-        # Guardar el DataFrame como un archivo Excel
-        df.to_excel('archivo_excel.xlsx', index=False)
-        st.success('El archivo Excel ha sido exportado correctamente.')
+        # Crear un objeto BytesIO
+        output = BytesIO()
+        # Guardar el DataFrame como un archivo Excel en el objeto BytesIO
+        writer = pd.ExcelWriter(output, engine='xlsxwriter')
+        df.to_excel(writer, index=False, sheet_name='Hoja1')
+        writer.save()
+        output.seek(0)
+        # Generar un botón de descarga con el archivo Excel
+        st.download_button(label='Descargar archivo Excel', data=output, file_name='archivo_excel.xlsx', mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
     
