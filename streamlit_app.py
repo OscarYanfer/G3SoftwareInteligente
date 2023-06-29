@@ -1,6 +1,5 @@
 #Importación de librerías
 import streamlit as st
-warnings.filterwarnings("ignore")
 
 #Título de la página
 st.set_page_config(
