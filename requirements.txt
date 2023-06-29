@@ -39,3 +39,5 @@ keras==2.11.0
 keras-mixed-sequence==1.0.28
 openpyxl==3.0.9
 missingno==0.4.2
+xlsxwriter==3.0.1
+io==0.6.0
