@@ -110,15 +110,15 @@ if uploaded_file is not None:
     st.write("""Conjunto de datos final:""")
     df
 
-    if st.button('Exportar como Excel'):
-        # Crear un objeto BytesIO
+    # Agregar un botón para descargar el archivo Excel
+    if st.button('Descargar Excel'):
+        # Convertir el DataFrame a un archivo Excel en memoria
         output = BytesIO()
-        # Guardar el DataFrame como un archivo Excel en el objeto BytesIO
         writer = pd.ExcelWriter(output, engine='xlsxwriter')
         df.to_excel(writer, index=False, sheet_name='Hoja1')
         writer.save()
         output.seek(0)
-        # Generar un botón de descarga con el archivo Excel
-        st.download_button(label='Descargar archivo Excel', data=output, file_name='archivo_excel.xlsx', mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-
+        # Generar un enlace de descarga para el archivo Excel
+        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{base64.b64encode(output.   read()).decode()}" download="dataframe.xlsx">Descargar archivo Excel</a>'
+        st.markdown(href, unsafe_allow_html=True)
     
