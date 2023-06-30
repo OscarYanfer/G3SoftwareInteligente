@@ -34,6 +34,7 @@ import matplotlib.pyplot as plt
 warnings.filterwarnings("ignore")
 #Sección III
 st.markdown("# Sección II - Reducción de variables")
+st.write("""NOTA: Ingresar archivo descargado en la sección I""")
 uploaded_file = st.file_uploader("Cargar archivo Excel:", type=["xlsx"])
 if uploaded_file is not None:
     #Columna iniciasl será el index

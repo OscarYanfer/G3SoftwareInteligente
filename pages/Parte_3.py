@@ -35,6 +35,7 @@ warnings.filterwarnings("ignore")
 #cargar el archivo
 #Sección 2
 st.markdown("# Sección III - Exploración de modelos")
+st.write("""NOTA: Ingresar archivo descargado en la sección I""")
 uploaded_file = st.file_uploader("Cargar archivo Excel:", type=["xlsx"])
 if uploaded_file is not None:
     #Columna iniciasl será el index

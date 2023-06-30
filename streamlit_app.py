@@ -6,7 +6,7 @@ st.set_page_config(
     page_title="Proyecto de Software Inteligente",
     page_icon="🤖",
 )
-st.sidebar.success("Seleccione un modelo del menú")
+st.sidebar.success("Seleccione una sección")
 #Encabezados principales
 st.write("# Predicción de la calidad del aire en Lima")
 st.markdown(
