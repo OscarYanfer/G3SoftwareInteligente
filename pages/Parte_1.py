@@ -113,12 +113,12 @@ if uploaded_file is not None:
 
     # Agregar un botón para descargar el archivo Excel
     # Agregar un botón para descargar el archivo Excel
-    if st.button('Descargar Excel'):
+if st.button('Descargar Excel'):
         # Guardar el DataFrame en un archivo Excel en el sistema de archivos
         excel_file = 'dataframe.xlsx'
         df.to_excel(excel_file, index=False)
 
         # Generar un enlace de descarga para el archivo Excel
         href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_file}" download="    {excel_file}">Descargar archivo Excel</a>'
-        st.markdown(href, unsafe_allow_html=True)
+        st.markdown(href, unsafe_allow_html=True)    
     
