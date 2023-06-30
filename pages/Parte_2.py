@@ -33,6 +33,8 @@ import missingno as msno
 import matplotlib.pyplot as plt
 warnings.filterwarnings("ignore")
 #cargar el archivo
+#Sección 2
+st.markdown("# Sección II - Exploración de modelos")
 uploaded_file = st.file_uploader("Cargar archivo Excel:", type=["xlsx"])
 if uploaded_file is not None:
     #Columna iniciasl será el index
@@ -40,8 +42,7 @@ if uploaded_file is not None:
     df = pd.read_excel(uploaded_file, sheet_name='Hoja1', index_col=0)
     st.dataframe(df)
     
-    #Sección 2
-    st.markdown("# Sección II - Exploración de modelos")
+   
     
     seed = 4353
     data = df
