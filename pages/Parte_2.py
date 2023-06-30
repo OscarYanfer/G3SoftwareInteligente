@@ -194,7 +194,7 @@ if uploaded_file is not None:
     st.pyplot(g.figure)
 
     st.markdown("## Importancia de los atributos")
-    st.write("##### Puede obtener la importancia de los atributos de cada entidad del conjunto de datos se usa la propiedad model.feature_importances_ del modelo. La importancia de la característica le da una puntuación para cada columna de los datos, cuanto mayor sea la puntuación, más importante o relevante será la característica para su variable de salida. La importancia de la característica es una clase incorporada que viene con un Regresor Basado en árbol, usaremos Extratreesregressor para extraer las 10 características principales para el conjunto de datos.")
+    st.write("##### Puede obtener la importancia de los atributos de cada entidad del conjunto de datos se usa la propiedad model.feature_importances_ del modelo. La importancia de la característica le da una puntuación para cada columna de los datos, cuanto mayor sea la puntuación, más importante o relevante será la característica para su variable de salida. La importancia de la característica es una clase incorporada que viene con un Regresor Basado en árbol, usaremos Extratreesregressor para extraer las 3 características principales para el conjunto de datos.")
     
     from sklearn.ensemble import ExtraTreesRegressor
     import matplotlib.pyplot as plt
@@ -216,7 +216,7 @@ if uploaded_file is not None:
     # Muestra el gráfico en Streamlit
     st.pyplot(fig)
 
-    st.markdown("## Entrenamiento del modelo (Random Forest)...")
+    st.markdown("## Entrenamiento del modelo (Random Forest)")
     from sklearn.model_selection import train_test_split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
     from sklearn.ensemble import RandomForestRegressor
@@ -269,14 +269,12 @@ if uploaded_file is not None:
     st.write('MAE:', mae)
     st.write('MSE:', mse)
     st.write('RMSE:', rmse)
-    # Muestra el gráfico en Streamlit
-    st.pyplot(fig)
 
     #Creamos una función para predecir
-    def predict_(CO, H2S, NO2, O3, PM10, SO2, R, UV, H, L, Lg, P, T):
+    def predict_(CO, H2S, PM25, O3, PM10, SO2, R, UV, H, L, Lg, P, T):
         co = int(CO)
         h2 = float(H2S)
-        no2 = float(NO2)
+        pm25 = float(PM25)
         o3 = float(O3)
         p10 = int(PM10)
         so = float(SO2)
@@ -288,12 +286,48 @@ if uploaded_file is not None:
         p = float(P)
         t = float(T)
 
-        x = [[co,h2,no2,o3,p10,so,r,uv,h,l,lg,p,t]]
+        x = [[co,h2,pm25,o3,p10,so,r,uv,h,l,lg,p,t]]
 
         return rf_random.predict(x)
     
     # Ingresamos una secuencia de data, según lo determinado en la función predict_
     predictions = predict_(150.2, 15.2, 50.24, 48.15, 55.2, 11.4, 89.8, 4.8, 117.6, -13.0, -70.5, 1048.3, 19.4)[0]
     if predictions:
-        st.write('Valor de NO2 2.5 es:', predictions)
-    predictions
+        st.write("Valores ingresados para comprobar el modelo:")
+        st.write("CO: 150.2")
+        st.write("H2S: 15.2")
+        st.write("PM2.5: 50.24")
+        st.write("O3: 48.15")
+        st.write("PM10: 55.2")
+        st.write("SO2: 11.4")
+        st.write("Ruido: 89.8")
+        st.write("UV: 4.8")
+        st.write("Humedad: 117.6")
+        st.write("Latitud: -13.0")
+        st.write("Longitud: -70.5")
+        st.write("Presión: 1048.3")
+        st.write("Temperatura: 19.4")
+        st.write('Valor de PM25 2.5 es:', predictions*100)
+        color = ''
+        if 0 <= ica <= 50:
+            color = 'green'
+        elif 51 <= ica <= 100:
+            color = 'yellow'
+        elif 101 <= ica <= 150:
+            color = 'orange'
+        elif 151 <= ica <= 200:
+            color = 'red'
+        elif 201 <= ica <= 300:
+            color = 'purple'
+        else:
+            color = 'brown'
+
+        # Mostrar la calidad del aire y el color correspondiente
+        st.markdown("### Calidad del aire:")
+        st.markdown(f"El Índice de Calidad del Aire (ICA) es: {ica}")
+        st.markdown(f'<span style="color: {color}; font-weight: bold;">'
+                    f'La calidad del aire es {color.capitalize()}</span>',
+                    unsafe_allow_html=True)
+        
+
+    
