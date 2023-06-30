@@ -323,8 +323,6 @@ if uploaded_file is not None:
             color = 'brown'
 
         # Mostrar la calidad del aire y el color correspondiente
-        st.markdown("### Calidad del aire:")
-        st.markdown(f"El Índice de Calidad del Aire (ICA) es: {ica}")
         st.markdown(f'<span style="color: {color}; font-weight: bold;">'
                     f'La calidad del aire es {color.capitalize()}</span>',
                     unsafe_allow_html=True)
