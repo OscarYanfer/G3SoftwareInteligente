@@ -41,15 +41,15 @@ if uploaded_file is not None:
     df = pd.read_excel(uploaded_file, sheet_name='Hoja1', index_col=0)
     
     #Convertir en 0 y 1 los valores de PM2.5, Niveles menores a 15 se consideran buenos, mientras que mayores se consideran perjudicial para el ser humano
-    df['pm2.5 \n(ug/m3)']=df['pm2.5 \n(ug/m3)'].astype(float)
-    df["pm2.5 \n(ug/m3)"]=np.where(df['pm2.5 \n(ug/m3)']<15, 0, 1)
+    df['PM2.5 \n(ug/m3)']=df['PM2.5 \n(ug/m3)'].astype(float)
+    df["PM2.5 \n(ug/m3)"]=np.where(df['PM2.5 \n(ug/m3)']<15, 0, 1)
     st.write("""NOTA: Convertir en 0 y 1 los valores de PM2.5, Niveles menores a 15 se consideran buenos, mientras que mayores se consideran perjudicial para el ser humano""")
     with st.spinner("Realizando conversión..."):
         time.sleep(1)
     st.write("""Conversión realizada""")
     #División de variable objetivo
     X=df.drop(['pm2.5 \n(ug/m3)'], axis=1)
-    Y=df["pm2.5 \n(ug/m3)"]
+    Y=df["PM2.5 \n(ug/m3)"]
     #Transformamos los atributos sobrantes a float64
     vf_float=X.columns[X.dtypes=="float64"]
     df_float=X.loc[:,vf_float]
@@ -173,9 +173,9 @@ if uploaded_file is not None:
     # Eliminamos los valores nulos si en el caso de que el conjunto de datos tenga pero no haya valores nulos que sean buenos
     data=data.dropna()
     
-    save=data["pm2.5 \n(ug/m3)"].copy()
-    data=data.drop("pm2.5 \n(ug/m3)",axis=1)
-    data["pm2.5 \n(ug/m3)"]=save
+    save=data["PM2.5 \n(ug/m3)"].copy()
+    data=data.drop("PM2.5 \n(ug/m3)",axis=1)
+    data["PM2.5 \n(ug/m3)"]=save
 
     data=data.drop(['fecha', 'año', 'mes', 'dia', 'hora'], axis=1)
 
