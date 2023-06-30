@@ -48,7 +48,7 @@ if uploaded_file is not None:
         time.sleep(1)
     st.write("""Conversión realizada""")
     #División de variable objetivo
-    X=df.drop(['pm2.5 \n(ug/m3)'], axis=1)
+    X=df.drop(['PM2.5 \n(ug/m3)'], axis=1)
     Y=df["PM2.5 \n(ug/m3)"]
     #Transformamos los atributos sobrantes a float64
     vf_float=X.columns[X.dtypes=="float64"]
