@@ -119,6 +119,6 @@ if st.button('Descargar Excel'):
         df.to_excel(excel_file, index=False)
 
         # Generar un enlace de descarga para el archivo Excel
-        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_file}" download="    {excel_file}">Descargar archivo Excel</a>'
+        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_file}" download="{excel_file}">Descargar archivo Excel</a>'
         st.markdown(href, unsafe_allow_html=True)    
     
