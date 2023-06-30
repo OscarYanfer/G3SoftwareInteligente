@@ -8,7 +8,7 @@ st.set_page_config(
 )
 st.sidebar.success("Seleccione un modelo del menú")
 #Encabezados principales
-st.write("# Predicción de la calidad del aire en Miraflores - Lima")
+st.write("# Predicción de la calidad del aire en Lima")
 st.markdown(
     """
     ## Grupo 3 - Integrantes:
@@ -22,8 +22,8 @@ st.markdown(
 
     ## Especificaciones:
     **Proyecto desplegado desde Streamlit**
-    - Inclusión de preprocesamiento. 
-    - Inclusión de gráficos
-    - Inclusión de predicción
+    - Parte I: Preprocesamiento. 
+    - Parte II: Reducción de variables y predicción
+    - Parte III: Comparación con otros modelos
     """
 )
