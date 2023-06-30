@@ -32,6 +32,8 @@ import seaborn as sns
 import missingno as msno 
 import matplotlib.pyplot as plt
 warnings.filterwarnings("ignore")
+#cargar el archivo
+uploaded_file = st.file_uploader("Cargar archivo Excel:", type=["xlsx"])
 if uploaded_file is not None:
     #Columna iniciasl será el index
     st.write("""Conjunto de datos cargado: """)
