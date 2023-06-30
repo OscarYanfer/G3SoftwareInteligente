@@ -34,7 +34,7 @@ import matplotlib.pyplot as plt
 warnings.filterwarnings("ignore")
 #cargar el archivo
 #Sección 2
-st.markdown("# Sección II - Exploración de modelos")
+st.markdown("# Sección III - Exploración de modelos")
 uploaded_file = st.file_uploader("Cargar archivo Excel:", type=["xlsx"])
 if uploaded_file is not None:
     #Columna iniciasl será el index

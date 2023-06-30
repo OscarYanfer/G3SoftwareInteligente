@@ -33,7 +33,7 @@ import missingno as msno
 import matplotlib.pyplot as plt
 warnings.filterwarnings("ignore")
 #Sección III
-st.markdown("# Sección III - Reducción de variables")
+st.markdown("# Sección II - Reducción de variables")
 uploaded_file = st.file_uploader("Cargar archivo Excel:", type=["xlsx"])
 if uploaded_file is not None:
     #Columna iniciasl será el index
