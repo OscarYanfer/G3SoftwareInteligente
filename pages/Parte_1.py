@@ -31,6 +31,7 @@ from sklearn.metrics import mean_squared_error
 import seaborn as sns
 import missingno as msno 
 import matplotlib.pyplot as plt
+import base64
 warnings.filterwarnings("ignore")
 from io import BytesIO
 
@@ -110,15 +111,20 @@ if uploaded_file is not None:
 
     st.write("""Conjunto de datos final:""")
     df
+    if st.button('Descargar Excel'):
+        # Guardar el DataFrame en un archivo Excel en el objeto BytesIO
+        output = BytesIO()
+        writer = pd.ExcelWriter(output, engine='xlsxwriter')
+        df.to_excel(writer, index=False)
+        writer.save()
+        output.seek(0)
 
-    # Agregar un botón para descargar el archivo Excel
-    # Agregar un botón para descargar el archivo Excel
-if st.button('Descargar Excel'):
-        # Guardar el DataFrame en un archivo Excel en el sistema de archivos
-        excel_file = 'dataframe.xlsx'
-        df.to_excel(excel_file, index=False)
+        # Codificar el objeto BytesIO en base64
+        excel_data = output.getvalue()
+        excel_base64 = base64.b64encode(excel_data).decode('utf-8')
 
-        # Generar un enlace de descarga para el archivo Excel
-        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_file}" download="{excel_file}">Descargar archivo Excel</a>'
-        st.markdown(href, unsafe_allow_html=True)    
+        # Generar el enlace de descarga con el archivo codificado en base64
+        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_base64}"     download="dataframe.xlsx">Descargar archivo Excel</a>'
+        st.markdown(href, unsafe_allow_html=True)
+
     
