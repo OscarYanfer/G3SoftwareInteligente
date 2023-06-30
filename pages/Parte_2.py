@@ -309,15 +309,15 @@ if uploaded_file is not None:
         st.write("Temperatura: 19.4")
         st.write('Valor de PM25 2.5 es:', predictions*100)
         color = ''
-        if 0 <= ica <= 50:
+        if 0 <= predictions*100 <= 50:
             color = 'green'
-        elif 51 <= ica <= 100:
+        elif 51 <= predictions*100 <= 100:
             color = 'yellow'
-        elif 101 <= ica <= 150:
+        elif 101 <= predictions*100 <= 150:
             color = 'orange'
-        elif 151 <= ica <= 200:
+        elif 151 <= predictions*100 <= 200:
             color = 'red'
-        elif 201 <= ica <= 300:
+        elif 201 <= predictions*100 <= 300:
             color = 'purple'
         else:
             color = 'brown'
