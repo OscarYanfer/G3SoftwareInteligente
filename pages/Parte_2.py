@@ -57,7 +57,7 @@ if uploaded_file is not None:
     vf_string=X.columns[X.dtypes=="object"]
     df_string=X.loc[:,vf_string]
     #Verificamos la existencia de valores perdidos
-    st.write("""Verificación de la existencia de valores perdidos""")
+    st.write("""Verificación de la existencia de valores perdidos:""")
     st.set_option('deprecation.showPyplotGlobalUse', False)
     msno.bar(df_float)
     st.pyplot()
@@ -163,6 +163,7 @@ if uploaded_file is not None:
     data = df
     ## Revisamos los datos nulos
     heatmap = sns.heatmap(data.isnull(), yticklabels=False, cbar=False, cmap='viridis')
+    
     plt.title('Mapa de calor de valores nulos')
     st.pyplot(heatmap.figure)
 
@@ -180,10 +181,8 @@ if uploaded_file is not None:
 
     ## Revisamos los valores nulos
     X.isnull()
-    st.markdown("#### Matriz de Correlación con Mapa de Calor")
-    st.markdown("##### La correlación indica cómo se relacionan las características entre sí o con la variable de destino.")
-    st.markdown("##### La correlación puede ser positiva (el aumento de un valor de característica aumenta el valor de la variable objetivo) o negativa (el aumento de un valor de característica disminuye el valor de la variable objetivo).")
-    st.markdown("##### El mapa de calor facilita la identificación de qué características están más relacionadas con la variable objetivo, trazaremos un mapa de calor de las características correlacionadas utilizando la biblioteca seaborn.")
+    st.markdown("## Matriz de Correlación con Mapa de Calor")
+    st.write("##### La correlación indica cómo se relacionan las características entre sí o con la variable de destino. La correlación puede ser positiva (el aumento de un valor de característica aumenta el valor de la variable objetivo) o negativa (el aumento de un valor de característica disminuye el valor de la variable objetivo). El mapa de calor facilita la identificación de qué características están más relacionadas con la variable objetivo, trazaremos un mapa de calor de las características correlacionadas utilizando la biblioteca seaborn.")
 
     import seaborn as sns
     # Obtener correlaciones de cada entidad en el conjunto de datos
@@ -194,10 +193,8 @@ if uploaded_file is not None:
     g=sns.heatmap(data[top_corr_features].corr(),annot=True,cmap="RdYlGn")
     st.pyplot(g.figure)
 
-    st.markdown("#### Importancia de los atributos")
-    st.markdown("##### Puede obtener la importancia de los atributos de cada entidad del conjunto de datos se usa la propiedad model.feature_importances_ del modelo.")
-    st.markdown("##### La importancia de la característica le da una puntuación para cada columna de los datos, cuanto mayor sea la puntuación, más importante o relevante será la característica para su variable de salida.")
-    st.markdown("##### La importancia de la característica es una clase incorporada que viene con un Regresor Basado en árbol, usaremos Extratreesregressor para extraer las 10 características principales para el conjunto de datos.")
+    st.markdown("## Importancia de los atributos")
+    st.write("##### Puede obtener la importancia de los atributos de cada entidad del conjunto de datos se usa la propiedad model.feature_importances_ del modelo. La importancia de la característica le da una puntuación para cada columna de los datos, cuanto mayor sea la puntuación, más importante o relevante será la característica para su variable de salida. La importancia de la característica es una clase incorporada que viene con un Regresor Basado en árbol, usaremos Extratreesregressor para extraer las 10 características principales para el conjunto de datos.")
     
     from sklearn.ensemble import ExtraTreesRegressor
     import matplotlib.pyplot as plt
@@ -219,7 +216,7 @@ if uploaded_file is not None:
     # Muestra el gráfico en Streamlit
     st.pyplot(fig)
 
-    st.markdown("#### Train Test split")
+    st.markdown("## Entrenamiento del modelo (Random Forest)...")
     from sklearn.model_selection import train_test_split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
     from sklearn.ensemble import RandomForestRegressor
@@ -230,7 +227,7 @@ if uploaded_file is not None:
 
 
 
-    st.markdown("#### Hiperparametros")
+    st.markdown("## Métricas Obtenidas")
     RandomForestRegressor()
     from sklearn.model_selection import RandomizedSearchCV
     n_estimators = [int(x) for x in np.linspace(start = 100, stop = 1200, num = 12)]
@@ -254,18 +251,14 @@ if uploaded_file is not None:
                 'min_samples_leaf': min_samples_leaf}
     # Usaremos el grid aleatorio para buscar los mejores hiperparámetros
     # Primero se crea el modelo base para afinar
-    st.write("""Cargando...""")
+    st.write("""Espere un momento...""")
     rf = RandomForestRegressor()
     # Búsqueda aleatoria de parámetros, mediante validación cruzada 3 veces,
     # Busca en 100 combinaciones diferentes
-    st.write("""Cargando...""")
     rf_random = RandomizedSearchCV(estimator = rf, param_distributions = random_grid,scoring='neg_mean_squared_error', n_iter= 10, cv=5, verbose=2, random_state=42, n_jobs = 1)
-    st.write("""Cargando...""")
     rf_random.fit(X_train,y_train)
-    st.write("""Cargando...""")
-    rf_random.best_params_
-    st.write("""Cargando...""")
-    rf_random.best_score_
+    #rf_random.best_params_
+    #rf_random.best_score_
     predictions=rf_random.predict(X_test)
     from sklearn import metrics
     mae = metrics.mean_absolute_error(y_test, predictions)
@@ -302,5 +295,5 @@ if uploaded_file is not None:
     # Ingresamos una secuencia de data, según lo determinado en la función predict_
     predictions = predict_(150.2, 15.2, 50.24, 48.15, 55.2, 11.4, 89.8, 4.8, 117.6, -13.0, -70.5, 1048.3, 19.4)[0]
     if predictions:
-        st.write('Valor de PM 2.5 es:', predictions)
-    X
+        st.write('Valor de NO2 2.5 es:', predictions)
+    predictions
