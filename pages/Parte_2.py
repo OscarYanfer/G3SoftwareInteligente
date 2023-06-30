@@ -176,8 +176,8 @@ if uploaded_file is not None:
     save=data["PM2.5 \n(ug/m3)"].copy()
     data=data.drop("PM2.5 \n(ug/m3)",axis=1)
     data["PM2.5 \n(ug/m3)"]=save
-
-    data=data.drop(['Fecha', 'Año', 'Mes', 'Dia', 'Hora'], axis=0)
+    data
+    data=data.drop(['Fecha', 'Año', 'Mes', 'Dia', 'Hora'], axis=1)
 
     # Asignamos los atirbutos dependientes e independientes
     X=data.iloc[:,:-1] # Atributos independientes
