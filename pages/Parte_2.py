@@ -38,7 +38,7 @@ uploaded_file = st.file_uploader("Cargar archivo Excel:", type=["xlsx"])
 if uploaded_file is not None:
     #Columna iniciasl será el index
     st.write("""Conjunto de datos cargado: """)
-    df = pd.read_excel(uploaded_file, sheet_name='Hoja1|', index_col=0)
+    df = pd.read_excel(uploaded_file, sheet_name='Hoja1', index_col=0)
     
     #Convertir en 0 y 1 los valores de PM2.5, Niveles menores a 15 se consideran buenos, mientras que mayores se consideran perjudicial para el ser humano
     df['pm2.5 \n(ug/m3)']=df['pm2.5 \n(ug/m3)'].astype(float)
