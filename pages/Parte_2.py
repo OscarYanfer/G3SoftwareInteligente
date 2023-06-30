@@ -327,5 +327,13 @@ if uploaded_file is not None:
                     f'La calidad del aire es {color.capitalize()}</span>',
                     unsafe_allow_html=True)
         
+        st.title("Índice de Calidad del Aire (ICA)")
+        st.write("Buena: Color verde (ICA de 0 a 50)")
+        st.write("Moderada: Color amarillo (ICA de 51 a 100)")
+        st.write("Dañina a la salud para grupos sensibles: Color naranja (ICA de 101 a 150)")
+        st.write("Dañina a la salud: Color rojo (ICA de 151 a 200)")
+        st.write("Muy dañina a la salud: Color morado (ICA de 201 a 300)")
+        st.write("Peligrosa: Color marrón (ICA superior a 300)")
+        
 
     

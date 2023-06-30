@@ -39,9 +39,9 @@ from io import BytesIO
 st.markdown("# Sección I - Preprocesamiento")
 
 #cargar el archivo
-uploaded_file = st.file_uploader("Cargar archivo Excel:", type=["xlsx"])
+uploaded_file_1 = st.file_uploader("Cargar archivo Excel:", type=["xlsx"])
 
-if uploaded_file is not None:
+if uploaded_file_1 is not None:
     #Columna iniciasl será el index
     st.write("""Conjunto de datos cargado: """)
     df = pd.read_excel(uploaded_file, sheet_name='Sheet1', index_col=0)
