@@ -159,10 +159,6 @@ if uploaded_file is not None:
     import matplotlib.pyplot as plt
     import seaborn as sns
 
-    # Ignoramos los avisos de warning
-    import warnings
-    warnings.filterwarnings('ignore')
-
     # Importamos la data procesada
     data = df
     ## Revisamos los datos nulos
@@ -176,7 +172,7 @@ if uploaded_file is not None:
     save=data["PM2.5 \n(ug/m3)"].copy()
     data=data.drop("PM2.5 \n(ug/m3)",axis=1)
     data["PM2.5 \n(ug/m3)"]=save
-    data
+    st.write(data.columns)
     data=data.drop(['Fecha', 'Año', 'Mes', 'Dia', 'Hora'], axis=1)
 
     # Asignamos los atirbutos dependientes e independientes
