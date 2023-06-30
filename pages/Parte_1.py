@@ -111,20 +111,16 @@ if uploaded_file is not None:
 
     st.write("""Conjunto de datos final:""")
     df
+    # Agregar un botón para descargar el archivo Excel
     if st.button('Descargar Excel'):
-        # Guardar el DataFrame en un archivo Excel en el objeto BytesIO
-        output = BytesIO()
-        writer = pd.ExcelWriter(output, engine='xlsxwriter')
-        df.to_excel(writer, index=False)
-        writer.save()
-        output.seek(0)
+        # Guardar el DataFrame en un archivo Excel
+        excel_file = 'dataframe.xlsx'
+        df.to_excel(excel_file, index=False)
 
-        # Codificar el objeto BytesIO en base64
-        excel_data = output.getvalue()
+        # Generar un enlace de descarga para el archivo Excel
+        with open(excel_file, 'rb') as f:
+            excel_data = f.read()
         excel_base64 = base64.b64encode(excel_data).decode('utf-8')
 
-        # Generar el enlace de descarga con el archivo codificado en base64
         href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{excel_base64}"     download="dataframe.xlsx">Descargar archivo Excel</a>'
         st.markdown(href, unsafe_allow_html=True)
-
-    
