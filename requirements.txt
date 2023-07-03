@@ -35,7 +35,10 @@ wordcloud==1.8.2.2
 nltk==3.7
 snscrape==0.4.3.20220106
 graphviz==0.20.1
-keras==2.11.0
+tensorflow==2.6.0
+tensorflow-addons==0.14.0
+tensorflow-estimator==2.6.0
+keras==2.6.0
 keras-mixed-sequence==1.0.28
 openpyxl==3.0.9
 missingno==0.4.2
