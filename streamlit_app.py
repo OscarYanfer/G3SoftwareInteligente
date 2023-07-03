@@ -16,9 +16,9 @@ st.markdown(
     |--|--|
     | Oscar Stalyn Yanfer Laura | 19200260 |
     | Diego Tharlez Montalvo Ortega | 19200088 |
-    | Jorge Luis Quispe Alarcon | 19200XXX |
-    | Wilker Edison Atalaya Ramirez | 19200XXX |
-    | Anthony Elias Ricse Perez | 19200XXX |
+    | Jorge Luis Quispe Alarcon | 19200094 |
+    | Wilker Edison Atalaya Ramirez | 19200067 |
+    | Anthony Elias Ricse Perez | 19200276 |
 
     ## Especificaciones:
     **Proyecto desplegado desde Streamlit**
