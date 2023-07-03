@@ -31,9 +31,6 @@ from sklearn.metrics import mean_squared_error
 import seaborn as sns
 import missingno as msno 
 import matplotlib.pyplot as plt
-import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
 warnings.filterwarnings("ignore")
 #cargar el archivo
 #Sección 2
@@ -103,17 +100,6 @@ if uploaded_file is not None:
         rmseSVM = np.sqrt(mean_squared_error(y_test, y_pred_sv))
         results.append(rmseSVM)
         models.append("SVM")
-
-    if show_neural_network:
-        nn_model = Sequential()
-        nn_model.add(Dense(64, activation='relu', input_dim=X_train.shape[1]))
-        nn_model.add(Dense(1))
-        nn_model.compile(optimizer='adam', loss='mean_squared_error')
-        nn_model.fit(X_train, y_train, epochs=10, batch_size=32, verbose=0)
-        y_pred_nn = nn_model.predict(X_test)
-        rmseNN = np.sqrt(mean_squared_error(y_test, y_pred_nn))
-        results.append(rmseNN)
-        models.append("Neural Network")
 
     if results:
         st.write("Comparando los modelos según el RMSE...")
