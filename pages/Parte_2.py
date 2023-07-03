@@ -229,6 +229,7 @@ if uploaded_file is not None:
 
 
     st.markdown("## Métricas Obtenidas")
+    #Aplicacion de hiperparametros
     RandomForestRegressor()
     from sklearn.model_selection import RandomizedSearchCV
     n_estimators = [int(x) for x in np.linspace(start = 100, stop = 1200, num = 12)]
@@ -297,7 +298,7 @@ if uploaded_file is not None:
         st.write("Valores ingresados para comprobar el modelo:")
         st.write("CO: 150.2")
         st.write("H2S: 15.2")
-        st.write("PM2.5: 50.24")
+        st.write("NO2: 50.24")
         st.write("O3: 48.15")
         st.write("PM10: 55.2")
         st.write("SO2: 11.4")
