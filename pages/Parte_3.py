@@ -38,7 +38,6 @@ st.markdown("# Sección III - Exploración de modelos")
 st.write("""NOTA: Ingresar archivo descargado en la sección I""")
 uploaded_file = st.file_uploader("Cargar archivo Excel:", type=["xlsx"])
 if uploaded_file is not None:
-    #Columna iniciasl será el index
     st.write("""Conjunto de datos cargado: """)
     df = pd.read_excel(uploaded_file, sheet_name='Hoja1', index_col=0)
     st.dataframe(df)

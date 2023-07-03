@@ -41,7 +41,7 @@ if uploaded_file is not None:
     st.write("""Conjunto de datos cargado: """)
     df = pd.read_excel(uploaded_file, sheet_name='Hoja1', index_col=0)
     
-    #Convertir en 0 y 1 los valores de PM2.5, Niveles menores a 15 se consideran buenos, mientras que mayores se consideran perjudicial para el ser humano
+    #Convertir en 0 y 1 los valores de PM2.5
     df['PM2.5 \n(ug/m3)']=df['PM2.5 \n(ug/m3)'].astype(float)
     df["PM2.5 \n(ug/m3)"]=np.where(df['PM2.5 \n(ug/m3)']<15, 0, 1)
     st.write("""NOTA: Convertir en 0 y 1 los valores de PM2.5, Niveles menores a 15 se consideran buenos, mientras que mayores se consideran perjudicial para el ser humano""")
@@ -57,7 +57,7 @@ if uploaded_file is not None:
     #Las variables no numéricas se transformaran a tipo objeto
     vf_string=X.columns[X.dtypes=="object"]
     df_string=X.loc[:,vf_string]
-    #Verificamos la existencia de valores perdidos
+    #Verificación la existencia de valores perdidos
     st.write("""Verificación de la existencia de valores perdidos:""")
     st.set_option('deprecation.showPyplotGlobalUse', False)
     msno.bar(df_float)
@@ -91,12 +91,12 @@ if uploaded_file is not None:
     # what are scores for the features
     feature=[]
     for i in range(len(fs.scores_)):
-        #print('Feature %s: %f' % (df_cat_tr.columns[i], fs.scores_[i]))
+        
         feature.append([df_string.columns[i],fs.scores_[i]])
     df_feature = pd.DataFrame(feature, columns = ['Variable','Score'])
 
     df_feature=df_feature.sort_values('Score',ascending=False).reset_index(drop=True)
-    #df_feature.iloc[0:50].to_excel("var_imp_cat.xlsx")
+
 
     df_feature1=df_feature.iloc[0:10].sort_values('Score',ascending=True).reset_index(drop=True)
     Peso = df_feature1['Score'].to_numpy()
@@ -133,12 +133,11 @@ if uploaded_file is not None:
 
     feature=[]
     for i in range(len(fs.scores_)):
-        #print('Feature %s: %f' % (df_numericas_limp_tr.columns[i], fs.scores_[i]))
         feature.append([df_float.columns[i],fs.scores_[i]])
     df_feature_num = pd.DataFrame(feature, columns = ['Variable','Score'])
 
     df_feature_num=df_feature_num.sort_values('Score',ascending=False).reset_index(drop=True)
-    #Score de variables importantes mediante filtro anova (numéricos)
+    #Score de variables importantes
     df_feature1=df_feature_num.iloc[0:13].sort_values('Score',ascending=True).reset_index(drop=True)
     Peso = df_feature1['Score'].to_numpy()
     Variable = df_feature1['Variable'].to_numpy()
@@ -168,7 +167,7 @@ if uploaded_file is not None:
     plt.title('Mapa de calor de valores nulos')
     st.pyplot(heatmap.figure)
 
-    # Eliminamos los valores nulos si en el caso de que el conjunto de datos tenga pero no haya valores nulos que sean buenos
+    # Eliminamos los valores nulos
     data=data.dropna()
     
     save=data["PM2.5 \n(ug/m3)"].copy()
@@ -202,12 +201,9 @@ if uploaded_file is not None:
     model = ExtraTreesRegressor()
     model.fit(X,y)
 
-    #Sustentación de los valores obtenidos por el FILTRO ANOVA.
-    # Gráfico del plot de la importancia de los atributos para una mejor visualización, el cual coincide con el filtro anova
-    # Genera los datos de ejemplo
     feat_importances = pd.Series(model.feature_importances_, index=X.columns)
 
-    # Obtén los 5 valores más grandes y crea el gráfico de barras horizontal
+    # Variables importantes
     top_features = feat_importances.nlargest(3)
     fig, ax = plt.subplots()
     top_features.plot(kind='barh')
@@ -233,14 +229,13 @@ if uploaded_file is not None:
     RandomForestRegressor()
     from sklearn.model_selection import RandomizedSearchCV
     n_estimators = [int(x) for x in np.linspace(start = 100, stop = 1200, num = 12)]
-    # Randorizamos la búsqueda de la data
+    # Randorización de la búsqueda de la data
     # Número de árboles en el random forest
     n_estimators = [int(x) for x in np.linspace(start = 100, stop = 1200, num = 12)]
     # Número de atributos a considerar en cada split
     max_features = ['auto', 'sqrt']
     # Máximo de número de árboles
     max_depth = [int(x) for x in np.linspace(5, 30, num = 6)]
-    # max_depth.append(None)
     # Mínimo de número de ejemplares requerido para separar un nodo
     min_samples_split = [2, 5, 10, 15, 100]
     # Número mínimo de muestras requeridas en cada nodo de hoja
@@ -251,12 +246,11 @@ if uploaded_file is not None:
                 'max_depth': max_depth,
                 'min_samples_split': min_samples_split,
                 'min_samples_leaf': min_samples_leaf}
-    # Usaremos el grid aleatorio para buscar los mejores hiperparámetros
-    # Primero se crea el modelo base para afinar
+    # Usamos el grid aleatorio para buscar los mejores hiperparámetros
     st.write("""Espere un momento...""")
     rf = RandomForestRegressor()
     # Búsqueda aleatoria de parámetros, mediante validación cruzada 3 veces,
-    # Busca en 100 combinaciones diferentes
+    # Busca en 10 combinaciones diferentes
     rf_random = RandomizedSearchCV(estimator = rf, param_distributions = random_grid,scoring='neg_mean_squared_error', n_iter= 10, cv=5, verbose=2, random_state=42, n_jobs = 1)
     rf_random.fit(X_train,y_train)
     #rf_random.best_params_

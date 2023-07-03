@@ -69,7 +69,7 @@ if uploaded_file_1 is not None:
     with st.spinner("Agregando las filas con información faltante..."):
         time.sleep(1)
     st.write("""Información faltante, agregada""")
-    #Calculamos el promedio de cada columna numérica y la agregamos a las filas con información faltante e imprimimos lo que se cambiará
+    #Calculamos el promedio de cada columna numérica y la agregamos a las filas con información faltante
     for c in columnas:
         mean = df[c].mean()
         print(mean)
@@ -90,7 +90,7 @@ if uploaded_file_1 is not None:
         df[c] = df[c].replace({0: max})
 
     df = df.rename(columns={'Fecha':'Fecha y Hora', 'Fecha_v2':'Fecha'})
-    #Transformamos la división de atributos en tipo fecha
+    #Transformacion de la división de atributos en tipo fecha
     df['Año'] = df['Fecha'].dt.year 
     df['Mes'] = df['Fecha'].dt.month 
     df['Dia'] = df['Fecha'].dt.day 
@@ -106,7 +106,7 @@ if uploaded_file_1 is not None:
 
     #df.head()
 
-    #Cambiando el indice a la Fecha y Hora, si es que se desea
+    #Cambiando el indice a la Fecha y Hora
     df.set_index("Fecha y Hora", drop=True, append=False, inplace=True, verify_integrity=False)
 
     st.write("""Conjunto de datos final:""")
